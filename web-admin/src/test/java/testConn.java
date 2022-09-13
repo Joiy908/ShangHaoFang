@@ -36,4 +36,15 @@ public class testConn {
             System.out.println("role = " + role);
         }
     }
+
+    @Autowired
+    private RoleService roleService;
+
+    @Test
+    public void testFindAllService() {
+        List<Role> all = roleService.findAll();
+        for (Role role : all) {
+            System.out.println("role = " + role);
+        }
+    }
 }
