@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2022/9/13
  */
 
-@SpringJUnitConfig(locations = {"classpath:spring/spring-dao.xml"})
+@SpringJUnitConfig(locations = {"classpath:spring/spring-dao.xml", "classpath:spring/spring-service.xml"})
 public class testConn {
     @Autowired
     private DataSource dataSource;
