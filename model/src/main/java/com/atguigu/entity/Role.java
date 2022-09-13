@@ -35,5 +35,13 @@ public class Role extends BaseEntity {
 		return this.description;
 	}
 
+	@Override
+	public String toString() {
+		return "Role{" +
+				"roleName='" + roleName + '\'' +
+				", roleCode='" + roleCode + '\'' +
+				", description='" + description + '\'' +
+				'}';
+	}
 }
 

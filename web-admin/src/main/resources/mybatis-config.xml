@@ -14,7 +14,7 @@
 
     <!-- 装配实体类 -->
     <typeAliases>
-        <package name="com.atguigu.entity, com.atguigu.vo"/>
+        <package name="com.atguigu.entity"/>
     </typeAliases>
 
 </configuration>
