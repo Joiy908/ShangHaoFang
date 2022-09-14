@@ -13,4 +13,8 @@ import java.util.List;
 @Service
 public interface RoleService {
     List<Role> findAll();
+
+    Integer insert(Role role);
+
+    Role getById(Long id);
 }

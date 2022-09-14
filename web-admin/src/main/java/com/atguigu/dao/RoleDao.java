@@ -12,4 +12,8 @@ import java.util.List;
 
 public interface RoleDao {
     List<Role> findAll();
+
+    Integer insert(Role role);
+
+    Role getById(Long id);
 }

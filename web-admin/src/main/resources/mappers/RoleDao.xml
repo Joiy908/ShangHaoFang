@@ -17,4 +17,27 @@
         where is_deleted = 0
     </select>
 
+    <!-- Integer insert(Role role); -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into acl_role (
+            id ,
+            role_name ,
+            role_code ,
+            description
+        ) values (
+                     #{id} ,
+                     #{roleName} ,
+                     #{roleCode} ,
+                     #{description}
+                 )
+    </insert>
+
+    <!-- Role getById(Long id); -->
+    <select id="getById" resultType="Role">
+        <include refid="columns" />
+        from acl_role
+        where
+        id = #{id}
+    </select>
+
 </mapper>

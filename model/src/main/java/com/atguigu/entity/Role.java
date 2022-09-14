@@ -3,8 +3,17 @@ package com.atguigu.entity;
 public class Role extends BaseEntity {
 	
 	private static final long serialVersionUID = 1L;
-	
-	//角色名称   
+
+	public Role() {
+	}
+
+	public Role(String roleName, String roleCode, String description) {
+		this.roleName = roleName;
+		this.roleCode = roleCode;
+		this.description = description;
+	}
+
+	//角色名称
 	private String roleName;
 	//角色编码   
 	private String roleCode;

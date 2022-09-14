@@ -47,4 +47,17 @@ public class testConn {
             System.out.println("role = " + role);
         }
     }
+
+    @Test
+    public void testInsert() {
+        Role role = new Role("testRole", null, "great role");
+        Integer insert = roleService.insert(role);
+        System.out.println("insert = " + insert);
+    }
+
+    @Test
+    public void testGet() {
+        Role r = roleService.getById(1L);
+        System.out.println("r = " + r);
+    }
 }

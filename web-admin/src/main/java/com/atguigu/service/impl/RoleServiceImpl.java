@@ -22,4 +22,15 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() {
         return roleDao.findAll();
     }
+
+    @Override
+    public Integer insert(Role role) {
+
+        return roleDao.insert(role);
+    }
+
+    @Override
+    public Role getById(Long id) {
+        return roleDao.getById(id);
+    }
 }
