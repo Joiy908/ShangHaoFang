@@ -43,6 +43,7 @@
               <th>角色编码</th>
               <th>描述</th>
               <th>创建时间</th>
+              <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -52,6 +53,9 @@
               <td th:text="${item.roleCode}">33</td>
               <td th:text="${item.description}">33</td>
               <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}" >33</td>
+              <td class="text-center">
+                <a class="edit" th:attr="data-id=${item.id}">修改</a>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -64,6 +68,10 @@
   $(function(){
     $(".create").on("click",function () {
       opt.openWin('/role/create','新增',630,430)
+    });
+    $(".edit").on("click",function () {
+      let id = $(this).attr("data-id");
+      opt.openWin('/role/edit/' + id,'修改',580,430);
     });
   });
 </script>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,6 +45,20 @@ public class RoleController {
     @PostMapping("/save")
     public String save(Role role, HttpServletRequest request) {
         roleService.insert(role);
+        return PAGE_SUCCESS;
+    }
+
+    private final static String PAGE_EDIT = "role/edit";
+    @GetMapping("/edit/{id}")
+    public String edit(ModelMap model, @PathVariable Long id) {
+        Role role = roleService.getById(id);
+        model.addAttribute("role",role);
+        return PAGE_EDIT;
+    }
+
+    @PostMapping(value="/update")
+    public String update(Role role) {
+        roleService.update(role);
         return PAGE_SUCCESS;
     }
 

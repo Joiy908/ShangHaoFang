@@ -13,6 +13,13 @@ public class Role extends BaseEntity {
 		this.description = description;
 	}
 
+	public Role(Long id ,String roleName, String roleCode, String description) {
+		this.setId(id);
+		this.roleName = roleName;
+		this.roleCode = roleCode;
+		this.description = description;
+	}
+
 	//角色名称
 	private String roleName;
 	//角色编码   

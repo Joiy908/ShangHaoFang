@@ -17,4 +17,6 @@ public interface RoleService {
     Integer insert(Role role);
 
     Role getById(Long id);
+
+    Integer update(Role role);
 }

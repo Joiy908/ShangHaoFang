@@ -57,7 +57,16 @@ public class testConn {
 
     @Test
     public void testGet() {
-        Role r = roleService.getById(1L);
+        Role r = roleService.getById(10L);
+        System.out.println("r = " + r);
+    }
+
+    @Test
+    public void testUpdate() {
+        final Role role = new Role(11L, "testRole11", null, "great role");
+        Integer i = roleService.update(role);
+
+        Role r = roleService.getById(11L);
         System.out.println("r = " + r);
     }
 }
