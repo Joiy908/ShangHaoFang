@@ -62,4 +62,11 @@ public class RoleController {
         return PAGE_SUCCESS;
     }
 
+    private final static String LIST_ACTION = "redirect:/role";
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        roleService.delete(id);
+        return LIST_ACTION;
+    }
+
 }

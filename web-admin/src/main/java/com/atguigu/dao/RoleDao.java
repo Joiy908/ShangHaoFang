@@ -18,4 +18,6 @@ public interface RoleDao {
     Role getById(Long id);
 
     Integer update(Role role);
+
+    Integer delete(Long id);
 }

@@ -57,4 +57,12 @@
         id = #{id}
     </update>
 
+    <!-- Integer delete(Long id); -->
+    <delete id="delete">
+        update acl_role set
+            update_time = now(),
+            is_deleted = 1
+        where id = #{id}
+    </delete>
+
 </mapper>

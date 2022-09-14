@@ -38,4 +38,9 @@ public class RoleServiceImpl implements RoleService {
     public Integer update(Role role) {
         return roleDao.update(role);
     }
+
+    @Override
+    public Integer delete(Long id) {
+        return roleDao.delete(id);
+    }
 }

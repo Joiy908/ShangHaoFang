@@ -69,4 +69,9 @@ public class testConn {
         Role r = roleService.getById(11L);
         System.out.println("r = " + r);
     }
+
+    @Test
+    public void testDelete() {
+        Integer i = roleService.delete(11L);
+    }
 }
