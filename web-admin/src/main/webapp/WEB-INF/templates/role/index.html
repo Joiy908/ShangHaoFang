@@ -21,6 +21,10 @@
   <!-- Data Tables -->
   <script th:src="@{/static/js/plugins/dataTables/jquery.dataTables.js}"></script>
   <script th:src="@{/static/js/plugins/dataTables/dataTables.bootstrap.js}"></script>
+
+  <!-- 弹出层js -->
+  <script th:src="@{/static/js/plugins/layer/layer.min.js}"></script>
+  <script th:src="@{/static/js/myLayer.js}"></script>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -28,6 +32,13 @@
     <div class="col-sm-12">
       <div class="ibox float-e-margins">
         <div class="ibox-content">
+          <div>
+            <button type="button" class="btn btn-sm btn-primary alert">alert</button>
+            <button type="button" class="btn btn-sm btn-primary load">load</button>
+            <button type="button" class="btn btn-sm btn-primary confirm">confirm</button>
+            <button type="button" class="btn btn-sm btn-primary dialog">dialog</button>
+            <button type="button" class="btn btn-sm btn-primary openWin">openWin</button>
+          </div>
           <table class="table table-striped table-bordered table-hover dataTables-example">
             <thead>
             <tr>
@@ -53,5 +64,24 @@
     </div>
   </div>
 </div>
+<script th:inline="javascript">
+  $(function(){
+    $(".alert").on("click",function () {
+      opt.alert("测试alert")
+    });
+    $(".load").on("click",function () {
+      opt.load();
+    });
+    $(".confirm").on("click",function(){
+      opt.confirm("","删除操作需要确认");
+    });
+    $(".dialog").on("click",function () {
+      opt.dialog("测试提示框",1);
+    });
+    $(".openWin").on("click",function () {
+      opt.openWin("/role","测试打开弹出窗口",580,430);
+    });
+  });
+</script>
 </body>
 </html>
