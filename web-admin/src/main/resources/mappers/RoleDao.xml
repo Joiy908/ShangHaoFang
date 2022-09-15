@@ -65,4 +65,19 @@
         where id = #{id}
     </delete>
 
+    <sql id="findPageWhere">
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and role_name = #{roleName}
+            </if>
+            and is_deleted = 0
+        </where>
+    </sql>
+
+    <select id="findPage" resultType="Role">
+        <include refid="columns" />
+        from acl_role
+        <include refid="findPageWhere"/>
+    </select>
+
 </mapper>
