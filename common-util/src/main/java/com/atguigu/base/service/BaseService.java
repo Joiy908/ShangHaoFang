@@ -1,0 +1,23 @@
+package com.atguigu.base.service;
+
+import com.github.pagehelper.PageInfo;
+
+import java.io.Serializable;
+import java.util.Map;
+
+/**
+ * @author Joiy908
+ * @date 2022/9/16
+ */
+
+public interface BaseService<T> {
+    Integer insert(T t);
+
+    Integer delete(Long id);
+
+    Integer update(T t);
+
+    T getById(Serializable id);
+
+    PageInfo<T> findPage(Map<String, Object> filters);
+}

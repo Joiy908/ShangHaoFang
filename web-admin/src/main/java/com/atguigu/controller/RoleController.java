@@ -1,5 +1,6 @@
 package com.atguigu.controller;
 
+import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Role;
 import com.atguigu.service.api.RoleService;
 import com.github.pagehelper.PageInfo;
@@ -12,14 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping(value="/role")
-public class RoleController {
+public class RoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;
@@ -38,35 +36,6 @@ public class RoleController {
         model.addAttribute("page", pageInfo);
         model.addAttribute("filters", filters);
         return PAGE_INDEX;
-    }
-
-    /**
-     * 封装页面提交的分页参数及搜索条件: 1 pageNum 2 PageSize 3 RoleName
-     * 如果request中没有, 第一次请求，则自己填入 默认值: (1, 10, null)
-     * 如果有, 拿出来, 转成 string
-     */
-    private Map<String, Object> getFilters(HttpServletRequest request) {
-        Enumeration<String> paramNames = request.getParameterNames();
-        Map<String, Object> filters = new HashMap<>();
-        while(paramNames != null && paramNames.hasMoreElements()) {
-            String paramName = (String) paramNames.nextElement();
-            String[] values = request.getParameterValues(paramName);
-            if (values != null && values.length != 0) {
-                if (values.length > 1) {
-                    filters.put(paramName, values);
-                } else {
-                    filters.put(paramName, values[0]);
-                }
-            }
-        }
-        if(!filters.containsKey("pageNum")) {
-            filters.put("pageNum", 1);
-        }
-        if(!filters.containsKey("pageSize")) {
-            filters.put("pageSize", 10);
-        }
-
-        return filters;
     }
 
     private final static String PAGE_CREATE = "role/create";
