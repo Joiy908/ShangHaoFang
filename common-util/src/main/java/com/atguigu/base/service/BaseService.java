@@ -5,10 +5,6 @@ import com.github.pagehelper.PageInfo;
 import java.io.Serializable;
 import java.util.Map;
 
-/**
- * @author Joiy908
- * @date 2022/9/16
- */
 
 public interface BaseService<T> {
     Integer insert(T t);

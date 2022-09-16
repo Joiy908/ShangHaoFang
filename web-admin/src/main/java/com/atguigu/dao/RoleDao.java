@@ -6,11 +6,6 @@ import com.atguigu.entity.Role;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Joiy908
- * @date 2022/9/13
- */
-
 
 public interface RoleDao extends BaseDao<Role> {
     List<Role> findAll();

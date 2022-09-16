@@ -6,11 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author Joiy908
- * @date 2022/9/13
- */
-
 @Service
 public interface RoleService extends BaseService<Role> {
     List<Role> findAll();
