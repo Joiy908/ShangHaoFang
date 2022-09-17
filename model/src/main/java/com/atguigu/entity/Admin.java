@@ -76,5 +76,18 @@ public class Admin extends BaseEntity {
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
 	}
+
+	@Override
+	public String toString() {
+		return "Admin{" +
+				"username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", name='" + name + '\'' +
+				", phone='" + phone + '\'' +
+				", headUrl='" + headUrl + '\'' +
+				", description='" + description + '\'' +
+				", roleList=" + roleList +
+				'}';
+	}
 }
 
