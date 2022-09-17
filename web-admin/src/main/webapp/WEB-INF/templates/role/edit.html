@@ -38,5 +38,24 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#ec').validate({
+      rules:{
+        roleName:"required",
+        description:"required"
+      },
+      messages:{
+        roleName:"角色必须输入",
+        description:"描述必须输入"
+      },
+      submitHandler: function(form) {
+        $(form).find(":submit").attr("disabled", true).text("正在提交...");
+        form.submit();
+      }
+    });
+  });
+</script>
 </body>
 </html>
