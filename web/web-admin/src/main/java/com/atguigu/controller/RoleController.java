@@ -1,10 +1,10 @@
 package com.atguigu.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Role;
-import com.atguigu.service.api.RoleService;
+import com.atguigu.service.RoleService;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping(value="/role")
 public class RoleController extends BaseController {
 
-    @Autowired
+    @Reference
     private RoleService roleService;
 
     private final static String PAGE_INDEX = "role/index";
