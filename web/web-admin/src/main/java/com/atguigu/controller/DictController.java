@@ -46,6 +46,7 @@ public class DictController extends BaseController {
     @ResponseBody
     public Result<List<Dict>> findListByParentId(@PathVariable Long parentId) {
         List<Dict> list = dictService.findListByParentId(parentId);
+        System.out.println("list = " + list);
         return Result.ok(list);
     }
 

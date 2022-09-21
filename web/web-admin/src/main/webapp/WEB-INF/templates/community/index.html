@@ -93,7 +93,9 @@
       $("#plateId").empty();
       $.get("/dict/findListByParentId/" + areaId,function(response) {
         $("<option value=''>-请选择板块-</option>").appendTo("#plateId");
-        var res = JSON.parse(response)
+        // var res = JSON.parse(response)
+        // 这里不用 再 parse 了, 已经是 json 了。
+        let res = response;
         $.each(res.data, function(i,item) {
           var plateId = [[${#maps.containsKey(filters, 'plateId')} ? ${filters.plateId} : '']];
           if(item.id == plateId) {
