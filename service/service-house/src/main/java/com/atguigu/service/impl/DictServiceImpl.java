@@ -48,7 +48,7 @@ public class DictServiceImpl implements DictService {
     public List<Dict> findListByDictCode(String dictCode) {
         Dict parent = dictDao.getByDictCode(dictCode);
         if (parent == null) return null;
-        return findListByParentId(parent.getParentId());
+        return findListByParentId(parent.getId());
     }
 
     @Override
