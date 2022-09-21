@@ -6,6 +6,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.entity.Dict;
 import com.atguigu.service.DictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service(interfaceClass = DictService.class)
+@Transactional
 public class DictServiceImpl implements DictService {
     @Autowired
     private DictDao dictDao;
@@ -35,5 +37,22 @@ public class DictServiceImpl implements DictService {
             ZNodeTree.add(map);
         }
         return ZNodeTree;
+    }
+
+    @Override
+    public List<Dict> findListByParentId(Long parentId) {
+        return dictDao.findListByParentId(parentId);
+    }
+
+    @Override
+    public List<Dict> findListByDictCode(String dictCode) {
+        Dict parent = dictDao.getByDictCode(dictCode);
+        if (parent == null) return null;
+        return findListByParentId(parent.getParentId());
+    }
+
+    @Override
+    public String getNameById(Long id) {
+        return dictDao.getNameById(id);
     }
 }

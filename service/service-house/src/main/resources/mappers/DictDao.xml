@@ -22,4 +22,19 @@
         select count(*) from hse_dict
         where parent_id = #{parentId}
     </select>
+
+    <!-- Dict getByDictCode(String dictCode); -->
+    <select id="getByDictCode" resultType="Dict">
+        <include refid="columns"/>
+        from hse_dict
+        where dict_code = #{dictCode}
+    </select>
+
+    <!-- String getNameById(Long id); -->
+    <select id="getNameById" resultType="String">
+        select name
+        from hse_dict
+        where
+        id = #{id}
+    </select>
 </mapper>

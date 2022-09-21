@@ -8,8 +8,12 @@ import com.atguigu.entity.Dict;
 import java.util.List;
 
 @Service
-public interface DictDao extends BaseDao<Dict> {
+public interface DictDao{
     List<Dict> findListByParentId(Long parentId);
 
     Integer countIsParent(Long id);
+
+    Dict getByDictCode(String dictCode);
+
+    String getNameById(Long id);
 }
