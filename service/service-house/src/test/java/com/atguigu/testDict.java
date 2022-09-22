@@ -1,6 +1,8 @@
+package com.atguigu;
+
 import com.atguigu.dao.DictDao;
 import com.atguigu.entity.Dict;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @SpringJUnitConfig(locations = {
         "classpath:spring/spring-dao.xml"
 })
-public class testDao {
+public class testDict {
     @Autowired
     private DictDao dictDao;
 

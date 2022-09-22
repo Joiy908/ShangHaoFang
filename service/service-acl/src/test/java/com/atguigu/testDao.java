@@ -1,4 +1,6 @@
-import org.junit.Test;
+package com.atguigu;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
@@ -9,9 +11,8 @@ import java.sql.SQLException;
 
 @SpringJUnitConfig(locations = {
         "classpath:spring/spring-dao.xml",
-        "classpath:spring/spring-service.xml",
 })
-public class testService {
+public class testDao {
     @Autowired
     private DataSource dataSource;
 
@@ -20,13 +21,4 @@ public class testService {
         Connection connection = dataSource.getConnection();
         System.out.println("connection = " + connection);
     }
-//
-//    @Autowired
-//    private AdminService adminService;
-//
-//    @Test
-//    public void testGet() {
-//        final Admin byId = adminService.getById(1L);
-//        System.out.println("byId = " + byId);
-//    }
 }
