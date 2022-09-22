@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.dao.HouseDao">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        select id,community_id,name,description,total_price,unit_price,build_area,inside_area,house_type_id,floor_id,build_structure_id,direction_id,decoration_id,house_use_id,elevator_ratio,listing_date,last_trade_date,status,create_time,update_time,is_deleted
+    </sql>
+
+    <sql id="findPageWhere">
+        <where>
+            <if test="name != null and name != ''">
+                and name like CONCAT('%',#{name},'%')
+            </if>
+            <if test="community_id != null and community_id != ''">
+                and name = #{name}
+            </if>
+            <if test="house_type_id != null and house_type_id != ''">
+                and community_id = #{communityId}
+            </if>
+            <if test="floor_id != null and floor_id != ''">
+                and house_type_id = #{houseTypeId}
+            </if>
+            <if test="build_structure_id != null and build_structure_id != ''">
+                and floor_id = #{floorId}
+            </if>
+            <if test="direction_id != null and direction_id != ''">
+                and build_structure_id = #{buildStructureId}
+            </if>
+            <if test="decoration_id != null and decoration_id != ''">
+                and direction_id = #{directionId}
+            </if>
+            and is_deleted = 0
+        </where>
+    </sql>
+
+    <!-- List<T> findPage(Map<String, Object> filters); -->
+    <select id="findPage" resultType="House">
+        <include refid="columns"/>
+        from hse_house
+        <include refid="findPageWhere"/>
+    </select>
+
+
+</mapper>
