@@ -3,6 +3,7 @@ package com.atguigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
+import com.atguigu.entity.Community;
 import com.atguigu.entity.House;
 import com.atguigu.service.CommunityService;
 import com.atguigu.service.DictService;
@@ -94,6 +95,19 @@ public class HouseController extends BaseController {
     public String publish(@PathVariable Long id,@PathVariable Integer status) {
         houseService.publish(id, status);
         return LIST_ACTION;
+    }
+
+    /**
+     * 详情
+     */
+    @GetMapping("/{id}")
+    public String show(ModelMap model,@PathVariable Long id) {
+        House house = houseService.getById(id);
+        Community community = communityService.getById(house.getCommunityId());
+        model.addAttribute("house", house);
+        model.addAttribute("community", community);
+
+        return "house/show";
     }
 
 }
