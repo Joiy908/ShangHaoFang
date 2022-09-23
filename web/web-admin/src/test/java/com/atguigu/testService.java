@@ -1,9 +1,13 @@
 package com.atguigu;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.atguigu.entity.Community;
+import com.atguigu.service.CommunityService;
 import com.atguigu.service.DictService;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import java.util.List;
 
 /**
  * @author Joiy908
@@ -22,6 +26,17 @@ public class testService {
 
         String name = dictService.getNameById(1L);
         System.out.println("name = " + name);
+    }
+
+    @Reference
+    private CommunityService communityService;
+
+    @Test
+    public void testGetAll() {
+        List<Community> all = communityService.findAll();
+        for (Community community : all) {
+            System.out.println("community = " + community);
+        }
     }
 
 }
