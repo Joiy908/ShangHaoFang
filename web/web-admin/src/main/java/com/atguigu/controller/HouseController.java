@@ -88,4 +88,12 @@ public class HouseController extends BaseController {
         return PAGE_SUCCESS;
     }
 
+    private final static String LIST_ACTION = "redirect:/house";
+
+    @GetMapping("/publish/{id}/{status}")
+    public String publish(@PathVariable Long id,@PathVariable Integer status) {
+        houseService.publish(id, status);
+        return LIST_ACTION;
+    }
+
 }
