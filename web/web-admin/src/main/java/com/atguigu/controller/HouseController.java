@@ -5,8 +5,10 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Community;
 import com.atguigu.entity.House;
+import com.atguigu.entity.HouseBroker;
 import com.atguigu.service.CommunityService;
 import com.atguigu.service.DictService;
+import com.atguigu.service.HouseBrokerService;
 import com.atguigu.service.HouseService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -30,6 +33,9 @@ public class HouseController extends BaseController {
 
     @Reference
     private DictService dictService;
+
+    @Reference
+    private HouseBrokerService houseBrokerService;
 
     private final static String PAGE_SUCCESS = "common/successPage";
 
@@ -106,6 +112,9 @@ public class HouseController extends BaseController {
         Community community = communityService.getById(house.getCommunityId());
         model.addAttribute("house", house);
         model.addAttribute("community", community);
+
+        List<HouseBroker> HBs = houseBrokerService.findHouseBrokersByHouseId(house.getId());
+        model.addAttribute("houseBrokerList", HBs);
 
         return "house/show";
     }
