@@ -11,6 +11,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,8 @@ public class HouseController extends BaseController {
 
     @Reference
     private DictService dictService;
+
+    private final static String PAGE_SUCCESS = "common/successPage";
 
     @RequestMapping
     public String index(ModelMap model, HttpServletRequest request) {
@@ -60,7 +64,28 @@ public class HouseController extends BaseController {
     @RequestMapping("/save")
     public String SaveHouse(House house) {
         houseService.insert(house);
-        return "common/success";
+        return PAGE_SUCCESS;
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(ModelMap model,@PathVariable Long id) {
+        House house = houseService.getById(id);
+        model.addAttribute("house",house);
+
+        setCommonAttr(model);
+        return "house/edit";
+    }
+
+    @PostMapping(value="/update")
+    public String update(House house) {
+        houseService.update(house);
+        return PAGE_SUCCESS;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        houseService.delete(id);
+        return PAGE_SUCCESS;
     }
 
 }
