@@ -36,14 +36,31 @@ public class HouseController extends BaseController {
         model.addAttribute("page", page);
         model.addAttribute("filters", filters);
 
-        model.addAttribute("communityList", communityService.findAll());
-        model.addAttribute("houseTypeList", dictService.findListByDictCode("houseType"));
+        setCommonAttr(model);
+        return "house/index";
+    }
+
+    @RequestMapping("/create")
+    public String createHouse(ModelMap model) {
+        setCommonAttr(model);
+        return "house/create";
+    }
+
+    /** helper method to avoid duplicated codes */
+    private void setCommonAttr(ModelMap model) {
+        model.addAttribute("communityList",communityService.findAll());
+        model.addAttribute("houseTypeList",dictService.findListByDictCode("houseType"));
         model.addAttribute("floorList",dictService.findListByDictCode("floor"));
         model.addAttribute("buildStructureList",dictService.findListByDictCode("buildStructure"));
         model.addAttribute("directionList",dictService.findListByDictCode("direction"));
         model.addAttribute("decorationList",dictService.findListByDictCode("decoration"));
         model.addAttribute("houseUseList",dictService.findListByDictCode("houseUse"));
-        return "house/index";
+    }
+
+    @RequestMapping("/save")
+    public String SaveHouse(House house) {
+        houseService.insert(house);
+        return "common/success";
     }
 
 }
