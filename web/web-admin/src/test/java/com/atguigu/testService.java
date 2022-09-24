@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.entity.Community;
 import com.atguigu.service.CommunityService;
 import com.atguigu.service.DictService;
+import com.atguigu.service.HouseImageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 

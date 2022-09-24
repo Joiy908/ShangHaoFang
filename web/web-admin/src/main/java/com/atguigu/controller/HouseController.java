@@ -6,10 +6,8 @@ import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Community;
 import com.atguigu.entity.House;
 import com.atguigu.entity.HouseBroker;
-import com.atguigu.service.CommunityService;
-import com.atguigu.service.DictService;
-import com.atguigu.service.HouseBrokerService;
-import com.atguigu.service.HouseService;
+import com.atguigu.entity.HouseImage;
+import com.atguigu.service.*;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,6 +34,9 @@ public class HouseController extends BaseController {
 
     @Reference
     private HouseBrokerService houseBrokerService;
+
+    @Reference
+    private HouseImageService houseImageService;
 
     private final static String PAGE_SUCCESS = "common/successPage";
 
@@ -115,6 +116,12 @@ public class HouseController extends BaseController {
 
         List<HouseBroker> HBs = houseBrokerService.findHouseBrokersByHouseId(house.getId());
         model.addAttribute("houseBrokerList", HBs);
+
+        List<HouseImage> houseImage1List = houseImageService.findList(house.getId(), 1);
+        List<HouseImage> houseImage2List = houseImageService.findList(house.getId(), 2);
+        model.addAttribute("houseImage1List", houseImage1List);
+        model.addAttribute("houseImage2List", houseImage2List);
+
 
         return "house/show";
     }
