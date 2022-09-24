@@ -1,15 +1,19 @@
 package com.atguigu.service.impl;
 
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
 import com.atguigu.base.service.BaseServiceImp;
 import com.atguigu.dao.HouseBrokerDao;
 import com.atguigu.entity.HouseBroker;
 import com.atguigu.service.HouseBrokerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service(interfaceClass = HouseBrokerService.class)
+@Transactional
 public class HouseBrokerServiceImpl extends BaseServiceImp<HouseBroker> implements HouseBrokerService {
     @Autowired
     private HouseBrokerDao houseBrokerDao;
