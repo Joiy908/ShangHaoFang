@@ -3,10 +3,7 @@ package com.atguigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
-import com.atguigu.entity.Community;
-import com.atguigu.entity.House;
-import com.atguigu.entity.HouseBroker;
-import com.atguigu.entity.HouseImage;
+import com.atguigu.entity.*;
 import com.atguigu.service.*;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -37,6 +34,9 @@ public class HouseController extends BaseController {
 
     @Reference
     private HouseImageService houseImageService;
+
+    @Reference
+    private HouseUserService houseUserService;
 
     private final static String PAGE_SUCCESS = "common/successPage";
 
@@ -122,6 +122,8 @@ public class HouseController extends BaseController {
         model.addAttribute("houseImage1List", houseImage1List);
         model.addAttribute("houseImage2List", houseImage2List);
 
+        List<HouseUser> houseUserList = houseUserService.findListByHouseId(house.getId());
+        model.addAttribute("houseUserList",houseUserList);
 
         return "house/show";
     }
