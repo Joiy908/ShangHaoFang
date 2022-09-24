@@ -98,4 +98,12 @@
         <include refid="findPageWhere"/>
         order by id desc
     </select>
+
+    <!-- List<Admin> findAll(); -->
+    <select id="findAll" resultType="Admin">
+        <include refid="columns" />
+        from acl_admin
+        where
+        is_deleted = 0
+    </select>
 </mapper>

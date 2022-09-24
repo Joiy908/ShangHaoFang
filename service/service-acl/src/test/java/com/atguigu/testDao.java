@@ -1,5 +1,8 @@
 package com.atguigu;
 
+import com.atguigu.dao.AdminDao;
+import com.atguigu.entity.Admin;
+import com.atguigu.service.AdminService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -7,6 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 
 @SpringJUnitConfig(locations = {
@@ -20,5 +24,14 @@ public class testDao {
     public void testConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
         System.out.println("connection = " + connection);
+    }
+
+
+    @Autowired
+    private AdminDao adminDao;
+
+    @Test
+    public void testFindAll() {
+        final List<Admin> all = adminDao.findAll();
     }
 }

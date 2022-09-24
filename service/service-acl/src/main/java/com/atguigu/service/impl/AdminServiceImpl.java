@@ -9,6 +9,8 @@ import com.atguigu.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service(interfaceClass = AdminService.class)
 @Transactional
 public class AdminServiceImpl extends BaseServiceImp<Admin> implements AdminService {
@@ -18,5 +20,10 @@ public class AdminServiceImpl extends BaseServiceImp<Admin> implements AdminServ
     @Override
     protected BaseDao<Admin> getEntityDao() {
         return this.adminDao;
+    }
+
+    @Override
+    public List<Admin> findAll() {
+        return adminDao.findAll();
     }
 }
