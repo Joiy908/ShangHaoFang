@@ -20,27 +20,27 @@ public class TestBrokerDao {
     @Autowired
     private HouseBrokerDao houseBrokerDao;
 
-//    @Test
-//    @Disabled
-//    public void testInsert() {
-//        houseBrokerDao.insert(new HouseBroker(1L, 15L, "test", null));
-//        List<HouseBroker> brokers = houseBrokerDao.findListByHouseId(1L);
-//        for (HouseBroker broker : brokers) {
-//            System.out.println("broker = " + broker);
-//        }
-//
-//    }
-//
-//    @Test
-//    public void testGet() {
-//        HouseBroker broker = houseBrokerDao.getById(1);
-//        System.out.println("broker = " + broker);
-//    }
-//
-//    @Test
-//    public void testRM() {
-//        houseBrokerDao.delete(7);
-//    }
+    @Test
+    @Disabled
+    public void testInsert() {
+        houseBrokerDao.insert(new HouseBroker(1L, 15L, "test", null));
+        List<HouseBroker> brokers = houseBrokerDao.findListByHouseId(1L);
+        for (HouseBroker broker : brokers) {
+            System.out.println("broker = " + broker);
+        }
+
+    }
+
+    @Test
+    public void testGet() {
+        HouseBroker broker = houseBrokerDao.getById(1);
+        System.out.println("broker = " + broker);
+    }
+
+    @Test
+    public void testRM() {
+        houseBrokerDao.delete(7);
+    }
 
 
 
