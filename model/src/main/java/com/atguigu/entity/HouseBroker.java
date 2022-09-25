@@ -14,7 +14,26 @@ public class HouseBroker extends BaseEntity {
 	//经纪人头像
 	private String brokerHeadUrl;
 
-	
+	public HouseBroker() {
+	}
+
+	public HouseBroker(Long houseId, Long brokerId, String brokerName, String brokerHeadUrl) {
+		this.houseId = houseId;
+		this.brokerId = brokerId;
+		this.brokerName = brokerName;
+		this.brokerHeadUrl = brokerHeadUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "HouseBroker{" +
+				"houseId=" + houseId +
+				", brokerId=" + brokerId +
+				", brokerName='" + brokerName + '\'' +
+				", brokerHeadUrl='" + brokerHeadUrl + '\'' +
+				'}';
+	}
+
 	public void setHouseId(Long value) {
 		this.houseId = value;
 	}

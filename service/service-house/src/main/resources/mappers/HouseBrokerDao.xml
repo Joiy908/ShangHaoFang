@@ -16,4 +16,52 @@
         from hse_house_broker
         where house_id = #{houseId} and is_deleted = 0
     </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into hse_house_broker (
+            id ,
+            house_id ,
+            broker_id ,
+            broker_name ,
+            broker_head_url
+        ) values (
+            #{id} ,
+            #{houseId} ,
+            #{brokerId} ,
+            #{brokerName} ,
+            #{brokerHeadUrl}
+                 )
+    </insert>
+
+
+    <update id="update" >
+        update hse_house_broker set
+        <if test="houseId != null and houseId != ''">
+            house_id = #{houseId} ,
+        </if>
+        <if test="brokerId != null and brokerId != ''">
+            broker_id = #{brokerId} ,
+        </if>
+        <if test="brokerName != null and brokerName != ''">
+            broker_name = #{brokerName} ,
+        </if>
+        <if test="brokerHeadUrl != null and brokerHeadUrl != ''">
+            broker_head_url = #{brokerHeadUrl} ,
+        </if>
+        update_time =  now()
+        where id = #{id}
+    </update>
+
+    <update id="delete">
+        update hse_house_broker set
+            update_time = now() ,
+            is_deleted = 1
+        where id = #{id}
+    </update>
+
+    <select id="getById" resultType="HouseBroker">
+        <include refid="columns" />
+        from hse_house_broker
+        where id = #{id}
+    </select>
 </mapper>
