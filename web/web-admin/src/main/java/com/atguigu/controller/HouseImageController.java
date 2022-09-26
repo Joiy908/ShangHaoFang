@@ -7,6 +7,7 @@ import com.atguigu.entity.HouseImage;
 import com.atguigu.result.Result;
 import com.atguigu.service.HouseImageService;
 import com.atguigu.util.AliyunOSSUtil;
+import com.atguigu.util.QiniuUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +52,19 @@ public class HouseImageController extends BaseController {
             }
         }
         return Result.ok();
+    }
+
+    @GetMapping("/delete/{houseId}/{imgId}")
+    public String delete(ModelMap model,
+                         @PathVariable Long houseId,
+                         @PathVariable Long imgId) {
+        HouseImage houseImage = houseImageService.getById(imgId);
+        houseImageService.delete(imgId);
+        // get file name
+        String imgUrl = houseImage.getImageUrl();
+        String fileName = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
+        // delete from OSS
+        AliyunOSSUtil.deleteFile(fileName);
+        return "redirect:/house/" + houseId;
     }
 }
