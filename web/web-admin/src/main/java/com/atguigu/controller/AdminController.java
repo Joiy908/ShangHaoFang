@@ -5,16 +5,17 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
+import com.atguigu.util.AliyunOSSUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -95,5 +96,30 @@ public class AdminController extends BaseController {
     public String delete(@PathVariable Long id) {
         adminService.delete(id);
         return LIST_ACTION;
+    }
+
+    /**
+     * 上传用户头像
+     */
+    @GetMapping("/uploadShow/{id}")
+    public String uploadShow(ModelMap model,@PathVariable Long id) {
+        model.addAttribute("id", id);
+        return "admin/upload";
+    }
+
+    @PostMapping("/upload/{id}")
+    public String upload(@PathVariable Long id,
+                         @RequestParam(value = "file") MultipartFile file,
+                         HttpServletRequest request) throws IOException {
+        String newFileName =  UUID.randomUUID() + file.getOriginalFilename() ;
+        // 上传图片
+        AliyunOSSUtil.uploadBytes(file.getBytes(), newFileName);
+        String url = "https://joiy908.oss-cn-beijing.aliyuncs.com/shangHaoFang/"+newFileName;
+
+        Admin admin = new Admin();
+        admin.setId(id);
+        admin.setHeadUrl(url);
+        adminService.update(admin);
+        return PAGE_SUCCESS;
     }
 }
