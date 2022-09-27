@@ -131,20 +131,20 @@
     <!-- Page<HouseVo> findListPage(@Param("vo") HouseQueryVo houseQueryVo); -->
     <select id="findListPage" resultType="com.atguigu.vo.HouseVo">
         select
-        cmty.name as communityName,
+            cmty.name as communityName,
 
-        hse.id,
-        hse.name,
-        hse.build_area as buildArea,
-        hse.unit_price as unitPrice,
-        hse.total_price as totalPrice,
-        hse.house_type_id as houseTypeId,
-        hse.floor_id as floorId,
-        hse.direction_id as directionId,
-        hse.default_image_url as defaultImageUrl,
-        hse.create_time as createTime
+            hse.id,
+            hse.name,
+            hse.build_area as buildArea,
+            hse.unit_price as unitPrice,
+            hse.total_price as totalPrice,
+            hse.house_type_id as houseTypeId,
+            hse.floor_id as floorId,
+            hse.direction_id as directionId,
+            hse.default_image_url as defaultImageUrl,
+            hse.create_time as createTime
         from hse_house hse
-        left join hse_community cmty on cmty.id = hse.community_id
+            left join hse_community cmty on cmty.id = hse.community_id
         <where>
             <if test="vo.keyword != null and vo.keyword != ''">
                 and hse.name like CONCAT('%',#{vo.keyword},'%')
