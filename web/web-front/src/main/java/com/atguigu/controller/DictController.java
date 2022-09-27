@@ -36,5 +36,14 @@ public class DictController extends BaseController {
         return Result.ok(list);
     }
 
+    /**
+     * 根据上级id获取子节点数据列表
+     */
+    @GetMapping(value = "findListByParentId/{parentId}")
+    public Result<List<Dict>> findListByParentId(@PathVariable Long parentId) {
+        List<Dict> list = dictService.findListByParentId(parentId);
+        return Result.ok(list);
+    }
+
 
 }
