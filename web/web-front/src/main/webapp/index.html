@@ -133,39 +133,15 @@
                 <!--pro-left deleted-->
                 <div class="clears"></div>
                 <ul class="pages">
-                    <!--<li>
-                        <a href="#">首页</a>
-                    </li>-->
                     <li>
-                        <a href="#">上一页</a>
+                        <a href="javascript:;" @click="fetchData(page.prePage)" v-if="page.hasPreviousPage">上一页</a>
                     </li>
-                    <li>
-                        <a href="#">1</a>
-                    </li>
-                    <li class="page_active">
-                        <a href="#">2</a>
+                    <li v-for="item in page.navigatepageNums" :class="item==page.pageNum ? 'page_active' : ''">
+                        <a href="javascript:;" @click="fetchData(item)">{{ item }}</a>
                     </li>
                     <li>
-                        <a href="#">3</a>
+                        <a href="javascript:;" @click="fetchData(page.nextPage)" v-if="page.hasNextPage">下一页</a>
                     </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <span>...</span>
-                    </li>
-                    <li>
-                        <a href="#">999</a>
-                    </li>
-                    <li>
-                        <a href="#">下一页</a>
-                    </li>
-                    <!--<li>
-                        <a href="#">尾页</a>
-                    </li>-->
                 </ul>
             </div><!--width1190/-->
         </div><!--content/-->
