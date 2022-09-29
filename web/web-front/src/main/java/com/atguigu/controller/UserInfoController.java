@@ -8,10 +8,13 @@ import com.atguigu.result.Result;
 import com.atguigu.result.ResultCodeEnum;
 import com.atguigu.service.UserInfoService;
 import com.atguigu.util.MD5;
+import com.atguigu.vo.LoginVo;
 import com.atguigu.vo.RegisterVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/userInfo")
@@ -61,5 +64,38 @@ public class UserInfoController {
         userInfo.setStatus(1);
         userInfoService.insert(userInfo);
         return Result.ok();
+    }
+
+    @PostMapping("login")
+    public Result login(@RequestBody LoginVo loginVo, HttpServletRequest request) {
+        String phone = loginVo.getPhone();
+        String password = loginVo.getPassword();
+
+        //校验参数
+        if(StringUtils.isEmpty(phone) ||
+                StringUtils.isEmpty(password)) {
+            return Result.build(null, ResultCodeEnum.PARAM_ERROR);
+        }
+
+        UserInfo userInfo = userInfoService.getUserInfoByPhone(phone);
+        if(null == userInfo) {
+            return Result.build(null, ResultCodeEnum.ACCOUNT_ERROR);
+        }
+
+        //校验密码
+        if(!MD5.encrypt(password).equals(userInfo.getPassword())) {
+            return Result.build(null, ResultCodeEnum.PASSWORD_ERROR);
+        }
+
+        //校验是否被禁用
+        if(userInfo.getStatus() == 0) {
+            return Result.build(null, ResultCodeEnum.ACCOUNT_LOCK_ERROR);
+        }
+        request.getSession().setAttribute("USER", userInfo);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone", userInfo.getPhone());
+        map.put("nickName", userInfo.getNickName());
+        return Result.ok(map);
     }
 }
