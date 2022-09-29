@@ -98,4 +98,10 @@ public class UserInfoController {
         map.put("nickName", userInfo.getNickName());
         return Result.ok(map);
     }
+
+    @GetMapping("/logout")
+    public Result logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("USER");
+        return Result.ok();
+    }
 }
