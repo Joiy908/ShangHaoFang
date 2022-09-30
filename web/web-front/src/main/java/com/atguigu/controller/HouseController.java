@@ -1,10 +1,7 @@
 package com.atguigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.atguigu.entity.Community;
-import com.atguigu.entity.House;
-import com.atguigu.entity.HouseBroker;
-import com.atguigu.entity.HouseImage;
+import com.atguigu.entity.*;
 import com.atguigu.result.Result;
 import com.atguigu.service.*;
 import com.atguigu.vo.HouseQueryVo;
@@ -12,6 +9,7 @@ import com.atguigu.vo.HouseVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +31,9 @@ public class HouseController {
 
     @Reference
     private HouseBrokerService houseBrokerService;
+
+    @Reference
+    private UserFollowService userFollowService;
     /**
      * 房源列表
      */
@@ -45,7 +46,7 @@ public class HouseController {
     }
 
     @GetMapping("info/{id}")
-    public Result info(@PathVariable Long id) {
+    public Result info(@PathVariable Long id, HttpServletRequest request) {
         House house = houseService.getById(id);
         Community community = communityService.getById(house.getCommunityId());
         List<HouseBroker> houseBrokerList = houseBrokerService.findHouseBrokersByHouseId(id);
@@ -56,8 +57,15 @@ public class HouseController {
         map.put("community",community);
         map.put("houseBrokerList",houseBrokerList);
         map.put("houseImage1List",houseImage1List);
-        //关注业务后续补充，当前默认返回未关注
-        map.put("isFollow",false);
+
+
+        UserInfo userInfo = (UserInfo) request.getSession().getAttribute("USER");
+        Boolean isFollow = false;
+        if(null != userInfo) {
+            Long userId = userInfo.getId();
+            isFollow = userFollowService.isFollowed(userId, id);
+        }
+        map.put("isFollow",isFollow);
         return Result.ok(map);
     }
 }

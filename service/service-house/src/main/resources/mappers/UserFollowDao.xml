@@ -49,4 +49,13 @@
             id = #{id}
     </select>
 
+    <select id="countByUserIdAndHouseId" resultType="Integer">
+        select count(id)
+        from user_follow
+        where
+            user_id = #{userId}
+            and house_id = #{houseId}
+            and is_deleted = 0
+    </select>
+
 </mapper>

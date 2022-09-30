@@ -28,4 +28,13 @@ public class UserFollowServiceImpl extends BaseServiceImp<UserFollow> implements
         userFollow.setHouseId(houseId);
         userFollowDao.insert(userFollow);
     }
+
+    @Override
+    public Boolean isFollowed(Long userId, Long houseId) {
+        Integer count = userFollowDao.countByUserIdAndHouseId(userId, houseId);
+        if(count.intValue() == 0) {
+            return false;
+        }
+        return true;
+    }
 }

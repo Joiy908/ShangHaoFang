@@ -6,4 +6,6 @@ import com.atguigu.entity.UserFollow;
 
 public interface UserFollowService extends BaseService<UserFollow> {
     void follow(Long userId, Long houseId);
+
+    Boolean isFollowed(Long userId, Long houseId);
 }
