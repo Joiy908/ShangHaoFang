@@ -39,4 +39,9 @@ public class UserFollowController extends BaseController {
         return Result.ok(pageInfo);
     }
 
+    @GetMapping("auth/cancelFollow/{id}")
+    public Result cancelFollow(@PathVariable("id") Long id, HttpServletRequest request){
+        userFollowService.cancelFollow(id);
+        return Result.ok();
+    }
 }

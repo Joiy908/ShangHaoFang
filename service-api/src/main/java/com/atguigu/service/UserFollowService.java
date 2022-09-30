@@ -12,4 +12,6 @@ public interface UserFollowService extends BaseService<UserFollow> {
     Boolean isFollowed(Long userId, Long houseId);
 
     PageInfo<UserFollowVo> findListPage(Integer pageNum, Integer pageSize, Long userId);
+
+    void cancelFollow(Long id);
 }

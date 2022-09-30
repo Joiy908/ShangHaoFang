@@ -67,4 +67,9 @@ public class UserFollowServiceImpl extends BaseServiceImp<UserFollow> implements
         }
         return new PageInfo<UserFollowVo>(page, 10);
     }
+
+    @Override
+    public void cancelFollow(Long id) {
+        userFollowDao.delete(id);
+    }
 }
