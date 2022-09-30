@@ -87,7 +87,7 @@
             <dd>
               <h3><a :href="'info.html?id='+item.houseId">{{ item.name }}</a></h3>
               <div class="guantext">{{ item.buildArea }}平 {{ item.houseTypeName}} {{ item.floorName}} {{ item.directionName}}</div>
-              <div class="guantext2">关注时间：{{ item.createTimeString}}    <a href="javascript:;" class="qxgz" @click="cancelFollow(item.id)">取消关注</a></div>
+              <div class="guantext2">关注时间：{{ item.createTime}}    <a href="javascript:;" class="qxgz" @click="cancelFollow(item.id)">取消关注</a></div>
             </dd>
             <div class="price">¥ <strong>{{ item.totalPrice }}</strong><span class="font12">万元</span></div>
             <div class="clearfix"></div>
@@ -130,10 +130,8 @@
   <div class="copy">Copyright@ 2020 尚好房 版权所有 沪ICP备1234567号-0&nbsp;&nbsp;&nbsp;&nbsp;技术支持：XXX </div>
   <div class="bg100"></div>
 </div>
-<script src="/static/js/api/userFollow.js"></script>
-<script src="/static/js/api/user.js"></script>
 <script>
-  var app =new Vue({
+  new Vue({
     el: '#follow',
 
     data: {
@@ -188,6 +186,18 @@
             that.page = response.data.data
           }
         });
+      },
+
+      cancelFollow(id) {
+        var that = this
+        axios.get('/userFollow/auth/cancelFollow/'+id).then(response => {
+          //如果没登录，拦截器会返回208状态，跳转登录页面
+          if (response.data.code == 208) {
+            window.location.href = 'login.html?originUrl='+window.location.href
+          } else {
+            that.fetchData(1)
+          }
+        })
       }
     }
   })
