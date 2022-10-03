@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
+import com.atguigu.service.RoleService;
 import com.atguigu.util.AliyunOSSUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class AdminController extends BaseController {
     @Reference
     private AdminService adminService;
 
+    @Reference
+    private RoleService roleService;
 
     private final static String LIST_ACTION = "redirect:/admin";
 
@@ -31,6 +34,8 @@ public class AdminController extends BaseController {
     private final static String PAGE_CREATE = "admin/create";
     private final static String PAGE_EDIT = "admin/edit";
     private final static String PAGE_SUCCESS = "common/successPage";
+
+    private final static String PAGE_ASSIGN_SHOW = "admin/assignShow";
 
     /**
      * 列表
@@ -121,5 +126,17 @@ public class AdminController extends BaseController {
         admin.setHeadUrl(url);
         adminService.update(admin);
         return PAGE_SUCCESS;
+    }
+
+    /**
+     * 进入分配角色页面
+     */
+    @GetMapping("/assignShow/{adminId}")
+    public String assignShow(ModelMap model,@PathVariable Long adminId) {
+        Map<String, Object> roleMap = roleService.findRoleByAdminId(adminId);
+        model.addAllAttributes(roleMap);
+
+        model.addAttribute("adminId", adminId);
+        return PAGE_ASSIGN_SHOW;
     }
 }

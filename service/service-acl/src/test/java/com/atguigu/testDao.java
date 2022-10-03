@@ -1,6 +1,7 @@
 package com.atguigu;
 
 import com.atguigu.dao.AdminDao;
+import com.atguigu.dao.AdminRoleDao;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
 import org.junit.jupiter.api.Test;
@@ -33,5 +34,13 @@ public class testDao {
     @Test
     public void testFindAll() {
         final List<Admin> all = adminDao.findAll();
+    }
+
+    @Autowired
+    private AdminRoleDao adminRoleDao;
+
+    @Test
+    public void testAdminRoleDao() {
+        adminRoleDao.findRoleIdByAdminId(1L);
     }
 }
