@@ -2,7 +2,7 @@ package com.atguigu.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
-import com.atguigu.base.service.BaseServiceImp;
+import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.AdminDao;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service(interfaceClass = AdminService.class)
 @Transactional
-public class AdminServiceImpl extends BaseServiceImp<Admin> implements AdminService {
+public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
     @Autowired
     private AdminDao adminDao;
 

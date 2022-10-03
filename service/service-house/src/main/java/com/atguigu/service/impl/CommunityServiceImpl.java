@@ -2,7 +2,7 @@ package com.atguigu.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
-import com.atguigu.base.service.BaseServiceImp;
+import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.CommunityDao;
 import com.atguigu.dao.DictDao;
 import com.atguigu.entity.Community;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Service(interfaceClass = CommunityService.class)
 @Transactional
-public class CommunityServiceImpl extends BaseServiceImp<Community> implements CommunityService {
+public class CommunityServiceImpl extends BaseServiceImpl<Community> implements CommunityService {
 
 
     @Autowired

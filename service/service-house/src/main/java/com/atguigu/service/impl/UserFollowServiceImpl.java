@@ -4,7 +4,7 @@ package com.atguigu.service.impl;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
-import com.atguigu.base.service.BaseServiceImp;
+import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.UserFollowDao;
 import com.atguigu.entity.UserFollow;
 import com.atguigu.service.DictService;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @Service(interfaceClass = UserFollowService.class)
 @Transactional
-public class UserFollowServiceImpl extends BaseServiceImp<UserFollow> implements UserFollowService {
+public class UserFollowServiceImpl extends BaseServiceImpl<UserFollow> implements UserFollowService {
     @Autowired
     private UserFollowDao userFollowDao;
 

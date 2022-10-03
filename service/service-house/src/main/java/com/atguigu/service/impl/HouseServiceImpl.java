@@ -3,7 +3,7 @@ package com.atguigu.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
-import com.atguigu.base.service.BaseServiceImp;
+import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.DictDao;
 import com.atguigu.dao.HouseDao;
 import com.atguigu.entity.House;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Service(interfaceClass = HouseService.class)
 @Transactional
-public class HouseServiceImpl extends BaseServiceImp<House> implements HouseService {
+public class HouseServiceImpl extends BaseServiceImpl<House> implements HouseService {
     @Autowired
     private HouseDao houseDao;
 

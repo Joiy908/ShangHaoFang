@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 @Transactional
-public abstract class BaseServiceImp<T> implements BaseService<T> {
+public abstract class BaseServiceImpl<T> implements BaseService<T> {
     protected abstract BaseDao<T> getEntityDao();
 
     public Integer insert(T t) {

@@ -2,7 +2,7 @@ package com.atguigu.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
-import com.atguigu.base.service.BaseServiceImp;
+import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.UserInfoDao;
 import com.atguigu.entity.UserInfo;
 import com.atguigu.service.UserInfoService;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service(interfaceClass = UserInfoService.class)
 @Transactional
-public class UserInfoServiceImpl extends BaseServiceImp<UserInfo> implements UserInfoService {
+public class UserInfoServiceImpl extends BaseServiceImpl<UserInfo> implements UserInfoService {
     @Autowired
     private UserInfoDao userInfoDao;
 

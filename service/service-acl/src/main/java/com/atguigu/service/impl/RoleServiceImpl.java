@@ -1,13 +1,10 @@
 package com.atguigu.service.impl;
 
-import com.alibaba.druid.util.StringUtils;
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
-import com.atguigu.base.service.BaseServiceImp;
+import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.AdminRoleDao;
 import com.atguigu.dao.RoleDao;
-import com.atguigu.entity.AdminRole;
 import com.atguigu.entity.Role;
 import com.atguigu.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,7 @@ import java.util.Map;
 
 @Service(interfaceClass = RoleService.class)
 @Transactional
-public class RoleServiceImpl extends BaseServiceImp<Role> implements RoleService {
+public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleService {
     @Autowired
     private RoleDao roleDao;
 
