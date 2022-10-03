@@ -15,4 +15,6 @@ public interface RoleService extends BaseService<Role> {
      * 根据用户获取角色数据
      */
     Map<String, Object> findRoleByAdminId(Long adminId);
+
+    void assignRole(Long adminId, Long[] roleIds);
 }

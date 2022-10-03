@@ -21,6 +21,12 @@
                  )
     </insert>
 
+    <!-- void insertRelation(@Param("adminId") Long adminId,@Param("roleId") Long roleId); -->
+    <insert id="insertRelation">
+        insert into acl_admin_role ( role_id ,admin_id)
+        values (#{roleId} ,#{adminId})
+    </insert>
+
     <update id="update" >
         update acl_admin_role set
             role_id = #{roleId} ,

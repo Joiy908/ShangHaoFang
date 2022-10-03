@@ -139,4 +139,13 @@ public class AdminController extends BaseController {
         model.addAttribute("adminId", adminId);
         return PAGE_ASSIGN_SHOW;
     }
+
+    /**
+     * 根据用户分配角色
+     */
+    @PostMapping("/assignRole")
+    public String assignRole(Long adminId, Long[] roleIds) {
+        roleService.assignRole(adminId,roleIds);
+        return PAGE_SUCCESS;
+    }
 }
