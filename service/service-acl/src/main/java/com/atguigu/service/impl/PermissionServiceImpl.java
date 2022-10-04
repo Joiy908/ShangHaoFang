@@ -6,7 +6,6 @@ import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.PermissionDao;
 import com.atguigu.dao.RolePermissionDao;
 import com.atguigu.entity.Permission;
-import com.atguigu.entity.RolePermission;
 import com.atguigu.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +63,54 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
             if(permissionId == null) continue;
             rolePermissionDao.insertRelation(roleId, permissionId);
         }
+    }
+
+    @Override
+    public List<Permission> findMenuPermissionByAdminId(Long adminId) {
+        List<Permission> permissionList = null;
+        //admin账号id为：1
+        if(adminId == 1) {
+            //如果是超级管理员，获取所有菜单
+            permissionList = permissionDao.findAll();
+        } else {
+            permissionList = permissionDao.findListByAdminId(adminId);
+        }
+        //把权限数据构建成树形结构数据
+        return build(permissionList);
+    }
+
+    /* helper methods */
+    /**
+     * 使用递归方法建菜单
+     */
+    public static List<Permission> build(List<Permission> treeNodes) {
+        List<Permission> trees = new ArrayList<>();
+        for (Permission treeNode : treeNodes) {
+            if (treeNode.getParentId() == 0) {
+                treeNode.setLevel(1);
+                trees.add(findChildren(treeNode,treeNodes));
+            }
+        }
+        return trees;
+    }
+
+    /**
+     * 递归查找子节点
+     */
+    public static Permission findChildren(Permission treeNode,List<Permission> treeNodes) {
+        treeNode.setChildren(new ArrayList<Permission>());
+
+        for (Permission it : treeNodes) {
+            if(treeNode.getId().longValue() == it.getParentId().longValue()) {
+                int level = treeNode.getLevel() + 1;
+                it.setLevel(level);
+                if (treeNode.getChildren() == null) {
+                    treeNode.setChildren(new ArrayList<>());
+                }
+                treeNode.getChildren().add(findChildren(it,treeNodes));
+            }
+        }
+        return treeNode;
     }
 
 }

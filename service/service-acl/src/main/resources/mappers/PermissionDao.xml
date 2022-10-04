@@ -31,7 +31,7 @@
                  )
     </insert>
 
-    <update id="update" >
+    <update id="update">
         update acl_permission set
         <if test="parentId != null and parentId != ''">
             parent_id = #{parentId} ,
@@ -65,7 +65,7 @@
     </update>
 
     <select id="getById" resultType="Permission">
-        <include refid="columns" />
+        <include refid="columns"/>
         from acl_permission
         where
         id = #{id}
@@ -79,4 +79,16 @@
             order by sort
     </select>
 
+    <!-- List<Permission> findListByAdminId(Long adminId); -->
+    <select id="findListByAdminId" resultType="Permission">
+        select p.*
+        from acl_admin_role ar
+                 inner join acl_role_permission rp on ar.role_id = rp.role_id
+                 inner join acl_permission p on rp.permission_id = p.id
+        where ar.admin_id = #{adminId}
+          and p.type = 1
+          and ar.is_deleted = 0
+          and rp.is_deleted = 0
+          and p.is_deleted = 0
+    </select>
 </mapper>
