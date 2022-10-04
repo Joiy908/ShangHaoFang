@@ -6,6 +6,7 @@ import com.atguigu.service.PermissionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -32,5 +33,23 @@ public class PermissionController {
         List<Permission> list = permissionService.findAllMenu();
         model.addAttribute("list", list);
         return PAGE_INDEX;
+    }
+
+    /**
+     * 进入新增
+     */
+    @GetMapping("/create")
+    public String create(ModelMap model, Permission permission) {
+        model.addAttribute("permission",permission);
+        return PAGE_CREATE;
+    }
+
+    /**
+     * 保存新增
+     */
+    @PostMapping("/save")
+    public String save(Permission permission) {
+        permissionService.insert(permission);
+        return PAGE_SUCCESS;
     }
 }
