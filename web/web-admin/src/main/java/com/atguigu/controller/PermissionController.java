@@ -6,6 +6,7 @@ import com.atguigu.service.PermissionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -51,5 +52,30 @@ public class PermissionController {
     public String save(Permission permission) {
         permissionService.insert(permission);
         return PAGE_SUCCESS;
+    }
+
+    /**
+     * 编辑
+     */
+    @GetMapping("/edit/{id}")
+    public String edit(ModelMap model, @PathVariable Long id) {
+        Permission permission = permissionService.getById(id);
+        model.addAttribute("permission",permission);
+        return PAGE_EDIT;
+    }
+
+    /**
+     * 保存更新
+     */
+    @PostMapping(value="/update")
+    public String update(Permission permission) {
+        permissionService.update(permission);
+        return PAGE_SUCCESS;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        permissionService.delete(id);
+        return LIST_ACTION;
     }
 }
