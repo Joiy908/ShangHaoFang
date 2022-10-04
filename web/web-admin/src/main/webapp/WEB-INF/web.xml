@@ -6,14 +6,16 @@
 
     <display-name>web</display-name>
 
-<!--    &lt;!&ndash; 加载spring容器 &ndash;&gt;-->
-<!--    <context-param>-->
-<!--        <param-name>contextConfigLocation</param-name>-->
-<!--        <param-value>classpath:spring/spring-*.xml</param-value>-->
-<!--    </context-param>-->
-<!--    <listener>-->
-<!--        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
-<!--    </listener>-->
+    <!-- SpringSecurity Filter -->
+    <!-- DelegatingFilterProxy用于整合第三方框架（代理过滤器，非真正的过滤器，真正的过滤器需要在spring的配置文件） -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!-- spring-mvc DispatcherServlet -->
     <servlet>
