@@ -6,6 +6,7 @@ import com.atguigu.base.service.BaseServiceImpl;
 import com.atguigu.dao.PermissionDao;
 import com.atguigu.dao.RolePermissionDao;
 import com.atguigu.entity.Permission;
+import com.atguigu.entity.RolePermission;
 import com.atguigu.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,16 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
             zNodes.add(map);
         }
         return zNodes;
+    }
+
+    @Override
+    public void saveRolePermissionRelation(Long roleId, Long[] permissionIds) {
+        rolePermissionDao.deleteByRoleId(roleId);
+
+        for(Long permissionId : permissionIds) {
+            if(permissionId == null) continue;
+            rolePermissionDao.insertRelation(roleId, permissionId);
+        }
     }
 
 }

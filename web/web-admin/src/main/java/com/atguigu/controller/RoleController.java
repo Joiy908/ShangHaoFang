@@ -92,6 +92,10 @@ public class RoleController extends BaseController {
     }
 
 
-
+    @PostMapping("/assignPermission")
+    public String assignPermission(Long roleId,Long[] permissionIds) {
+        permissionService.saveRolePermissionRelation(roleId, permissionIds);
+        return PAGE_SUCCESS;
+    }
 
 }
