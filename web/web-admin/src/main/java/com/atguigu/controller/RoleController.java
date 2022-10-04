@@ -3,6 +3,7 @@ package com.atguigu.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Role;
+import com.atguigu.service.PermissionService;
 import com.atguigu.service.RoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,6 +23,9 @@ public class RoleController extends BaseController {
 
     @Reference
     private RoleService roleService;
+
+    @Reference
+    private PermissionService permissionService;
 
     private final static String PAGE_INDEX = "role/index";
     /**
@@ -72,5 +77,21 @@ public class RoleController extends BaseController {
         roleService.delete(id);
         return LIST_ACTION;
     }
+
+    private final static String PAGE_ASSIGN_SHOW = "role/assignShow";
+
+    /**
+     * 进入分配权限页面
+     */
+    @GetMapping("/assignShow/{roleId}")
+    public String assignShow(ModelMap model,@PathVariable Long roleId) {
+        List<Map<String,Object>> zNodes = permissionService.findPermissionByRoleId(roleId);
+        model.addAttribute("zNodes", zNodes);
+        model.addAttribute("roleId", roleId);
+        return  PAGE_ASSIGN_SHOW;
+    }
+
+
+
 
 }
