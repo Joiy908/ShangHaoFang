@@ -1,5 +1,6 @@
 package com.atguigu.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.dao.BaseDao;
 import com.atguigu.base.service.BaseServiceImpl;
@@ -75,6 +76,17 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
         } else {
             permissionList = permissionDao.findListByAdminId(adminId);
         }
+        //把权限数据构建成树形结构数据
+        return build(permissionList);
+    }
+
+    @Override
+    public List<Permission> findAllMenu() {
+        //全部权限列表
+        List<Permission> permissionList = permissionDao.findAll();
+        if(CollectionUtils.isEmpty(permissionList)) return null;
+
+        //构建树形数据,总共三级
         //把权限数据构建成树形结构数据
         return build(permissionList);
     }

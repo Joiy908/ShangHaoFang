@@ -12,4 +12,6 @@ public interface PermissionService {
     void saveRolePermissionRelation(Long roleId, Long[] permissionIds);
 
     List<Permission> findMenuPermissionByAdminId(Long adminId);
+
+    List<Permission> findAllMenu();
 }
