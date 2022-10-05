@@ -17,7 +17,7 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username----->"+username);
+//        System.out.println("username----->"+username);
         Admin admin = adminService.getByUsername(username);
         if(null == admin) {
             throw new UsernameNotFoundException("用户名不存在！");
