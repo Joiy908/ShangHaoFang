@@ -5,6 +5,9 @@ import com.atguigu.entity.Admin;
 import com.atguigu.entity.Permission;
 import com.atguigu.service.AdminService;
 import com.atguigu.service.PermissionService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +31,10 @@ public class IndexController {
      */
     @GetMapping("/")
     public String index(ModelMap model) {
-        //后续替换为当前登录用户id
-        Long adminId = 1L;
-        Admin admin = adminService.getById(adminId);
-        List<Permission> permissionList = permissionService.findMenuPermissionByAdminId(adminId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        Admin admin = adminService.getByUsername(user.getUsername());
+        List<Permission> permissionList = permissionService.findMenuPermissionByAdminId(admin.getId());
         model.addAttribute("admin", admin);
         model.addAttribute("permissionList",permissionList);
         return PAGE_INDEX;
