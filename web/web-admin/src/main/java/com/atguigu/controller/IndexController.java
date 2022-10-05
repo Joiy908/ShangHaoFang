@@ -16,6 +16,7 @@ public class IndexController {
 
     private final static String PAGE_INDEX = "frame/index";
     private final static String PAGE_MAIN = "frame/main";
+    private final static String PAGE_LOGIN = "frame/login";
 
     @Reference
     private AdminService adminService;
@@ -34,6 +35,11 @@ public class IndexController {
         model.addAttribute("admin", admin);
         model.addAttribute("permissionList",permissionList);
         return PAGE_INDEX;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return PAGE_LOGIN;
     }
 
     /**
