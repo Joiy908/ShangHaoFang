@@ -8,6 +8,8 @@ import com.atguigu.service.AdminService;
 import com.atguigu.service.RoleService;
 import com.atguigu.util.AliyunOSSUtil;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +22,15 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
-
 public class AdminController extends BaseController {
     @Reference
     private AdminService adminService;
 
     @Reference
     private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final static String LIST_ACTION = "redirect:/admin";
 
@@ -68,6 +72,7 @@ public class AdminController extends BaseController {
     public String save(Admin admin) {
         //设置默认头像
         admin.setHeadUrl("http://47.93.148.192:8080/group1/M00/03/F0/rBHu8mHqbpSAU0jVAAAgiJmKg0o148.jpg");
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         adminService.insert(admin);
 
         return PAGE_SUCCESS;
@@ -88,9 +93,7 @@ public class AdminController extends BaseController {
      */
     @PostMapping("/update")
     public String update(Admin admin) {
-
         adminService.update(admin);
-
         return PAGE_SUCCESS;
     }
 
