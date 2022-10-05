@@ -106,4 +106,13 @@
         where
         is_deleted = 0
     </select>
+
+    <!-- Admin getByUsername(String username);-->
+    <select id="getByUsername" resultType="Admin">
+        select id,username,password,name,phone,head_url,description,create_time,update_time,is_deleted
+        from acl_admin
+        where
+            username = #{username}
+            and is_deleted = 0
+    </select>
 </mapper>
