@@ -8,6 +8,7 @@ import com.atguigu.result.Result;
 import com.atguigu.service.HouseImageService;
 import com.atguigu.util.AliyunOSSUtil;
 import com.atguigu.util.QiniuUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class HouseImageController extends BaseController {
         return "house/upload";
     }
 
+    @PreAuthorize("hasAuthority('house.editImage')")
     @PostMapping("/upload/{houseId}/{type}")
     @ResponseBody
     public Result upload(@PathVariable Long houseId,
@@ -54,6 +56,7 @@ public class HouseImageController extends BaseController {
         return Result.ok();
     }
 
+    @PreAuthorize("hasAuthority('house.editImage')")
     @GetMapping("/delete/{houseId}/{imgId}")
     public String delete(ModelMap model,
                          @PathVariable Long houseId,

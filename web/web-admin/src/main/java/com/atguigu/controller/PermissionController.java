@@ -3,6 +3,7 @@ package com.atguigu.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.entity.Permission;
 import com.atguigu.service.PermissionService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class PermissionController {
     /**
      * 获取菜单
      */
+    @PreAuthorize("hasAuthority('permission.show')")
     @GetMapping
     public String index(ModelMap model) {
         List<Permission> list = permissionService.findAllMenu();
@@ -39,6 +41,7 @@ public class PermissionController {
     /**
      * 进入新增
      */
+    @PreAuthorize("hasAuthority('permission.create')")
     @GetMapping("/create")
     public String create(ModelMap model, Permission permission) {
         model.addAttribute("permission",permission);
@@ -48,6 +51,8 @@ public class PermissionController {
     /**
      * 保存新增
      */
+
+    @PreAuthorize("hasAuthority('permission.create')")
     @PostMapping("/save")
     public String save(Permission permission) {
         permissionService.insert(permission);
@@ -57,6 +62,7 @@ public class PermissionController {
     /**
      * 编辑
      */
+    @PreAuthorize("hasAuthority('permission.edit')")
     @GetMapping("/edit/{id}")
     public String edit(ModelMap model, @PathVariable Long id) {
         Permission permission = permissionService.getById(id);
@@ -67,12 +73,14 @@ public class PermissionController {
     /**
      * 保存更新
      */
+    @PreAuthorize("hasAuthority('permission.edit')")
     @PostMapping(value="/update")
     public String update(Permission permission) {
         permissionService.update(permission);
         return PAGE_SUCCESS;
     }
 
+    @PreAuthorize("hasAuthority('permission.delete')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         permissionService.delete(id);

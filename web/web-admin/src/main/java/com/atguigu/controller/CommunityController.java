@@ -8,6 +8,7 @@ import com.atguigu.service.CommunityService;
 import com.atguigu.service.DictService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class CommunityController extends BaseController {
      * @param request
      * @return
      */
+    @PreAuthorize("hasAuthority('community.show')")
     @RequestMapping
     public String index(ModelMap model, HttpServletRequest request) {
         Map<String,Object> filters = getFilters(request);
@@ -60,6 +62,7 @@ public class CommunityController extends BaseController {
     /**
      * 进入新增
      */
+    @PreAuthorize("hasAuthority('community.create')")
     @GetMapping("/create")
     public String create(ModelMap model) {
         List<Dict> areaList = dictService.findListByDictCode("beijing");
@@ -70,6 +73,7 @@ public class CommunityController extends BaseController {
     /**
      * 保存新增
      */
+    @PreAuthorize("hasAuthority('community.create')")
     @PostMapping("/save")
     public String save(Community community) {
         communityService.insert(community);
@@ -79,6 +83,7 @@ public class CommunityController extends BaseController {
     /**
      * 编辑
      */
+    @PreAuthorize("hasAuthority('community.edit')")
     @GetMapping("/edit/{id}")
     public String edit(ModelMap model,@PathVariable Long id) {
         Community community = communityService.getById(id);
@@ -91,6 +96,7 @@ public class CommunityController extends BaseController {
     /**
      * 保存更新
      */
+    @PreAuthorize("hasAuthority('community.edit')")
     @PostMapping(value="/update")
     public String update(Community community) {
 
@@ -102,6 +108,7 @@ public class CommunityController extends BaseController {
     /**
      * 删除
      */
+    @PreAuthorize("hasAuthority('community.delete')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         communityService.delete(id);

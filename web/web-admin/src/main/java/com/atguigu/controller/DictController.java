@@ -5,6 +5,7 @@ import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.Dict;
 import com.atguigu.result.Result;
 import com.atguigu.service.DictService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,13 @@ public class DictController extends BaseController {
     private DictService dictService;
 
     private final static String PAGE_INDEX = "dict/index";
+
+    @PreAuthorize("hasAuthority('dict.show')")
+    @GetMapping
+    public String index(ModelMap model) {
+        return PAGE_INDEX;
+    }
+
     /**
      * 根据上级id获取子节点数据列表
      * @param id
@@ -32,11 +40,6 @@ public class DictController extends BaseController {
     ) {
         List<Map<String,Object>> zNodes = dictService.findZnodes(id);
         return Result.ok(zNodes);
-    }
-
-    @GetMapping
-    public String index(ModelMap model) {
-        return PAGE_INDEX;
     }
 
     /**

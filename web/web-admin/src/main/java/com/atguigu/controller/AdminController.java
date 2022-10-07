@@ -9,6 +9,7 @@ import com.atguigu.service.RoleService;
 import com.atguigu.util.AliyunOSSUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,6 +48,7 @@ public class AdminController extends BaseController {
      * @param request
      * @return
      */
+    @PreAuthorize("hasAuthority('admin.show')")
     @RequestMapping
     public String index(ModelMap model, HttpServletRequest request) {
         Map<String,Object> filters = getFilters(request);
@@ -60,6 +62,7 @@ public class AdminController extends BaseController {
     /**
      * 进入新增页面
      */
+    @PreAuthorize("hasAuthority('admin.create')")
     @GetMapping("/create")
     public String create() {
         return PAGE_CREATE;
@@ -68,6 +71,7 @@ public class AdminController extends BaseController {
     /**
      * 保存新增
      */
+    @PreAuthorize("hasAuthority('admin.create')")
     @PostMapping("/save")
     public String save(Admin admin) {
         //设置默认头像
@@ -81,6 +85,7 @@ public class AdminController extends BaseController {
     /**
      * 进入编辑页面
      */
+    @PreAuthorize("hasAuthority('admin.edit')")
     @GetMapping("/edit/{id}")
     public String edit(ModelMap model, @PathVariable Long id) {
         Admin admin = adminService.getById(id);
@@ -91,6 +96,7 @@ public class AdminController extends BaseController {
     /**
      * 保存更新
      */
+    @PreAuthorize("hasAuthority('admin.edit')")
     @PostMapping("/update")
     public String update(Admin admin) {
         adminService.update(admin);
@@ -100,6 +106,7 @@ public class AdminController extends BaseController {
     /**
      * 删除
      */
+    @PreAuthorize("hasAuthority('admin.delete')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         adminService.delete(id);
@@ -109,12 +116,14 @@ public class AdminController extends BaseController {
     /**
      * 上传用户头像
      */
+    @PreAuthorize("hasAuthority('admin.edit')")
     @GetMapping("/uploadShow/{id}")
     public String uploadShow(ModelMap model,@PathVariable Long id) {
         model.addAttribute("id", id);
         return "admin/upload";
     }
 
+    @PreAuthorize("hasAuthority('admin.edit')")
     @PostMapping("/upload/{id}")
     public String upload(@PathVariable Long id,
                          @RequestParam(value = "file") MultipartFile file,
@@ -134,6 +143,7 @@ public class AdminController extends BaseController {
     /**
      * 进入分配角色页面
      */
+    @PreAuthorize("hasAuthority('admin.assign')")
     @GetMapping("/assignShow/{adminId}")
     public String assignShow(ModelMap model,@PathVariable Long adminId) {
         Map<String, Object> roleMap = roleService.findRoleByAdminId(adminId);
@@ -146,6 +156,7 @@ public class AdminController extends BaseController {
     /**
      * 根据用户分配角色
      */
+    @PreAuthorize("hasAuthority('admin.assign')")
     @PostMapping("/assignRole")
     public String assignRole(Long adminId, Long[] roleIds) {
         roleService.assignRole(adminId,roleIds);

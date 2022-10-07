@@ -6,6 +6,7 @@ import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.*;
 import com.atguigu.service.*;
 import com.github.pagehelper.PageInfo;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ public class HouseController extends BaseController {
 
     private final static String PAGE_SUCCESS = "common/successPage";
 
+    @PreAuthorize("hasAuthority('house.show')")
     @RequestMapping
     public String index(ModelMap model, HttpServletRequest request) {
         Map<String, Object> filters = getFilters(request);
@@ -52,6 +54,7 @@ public class HouseController extends BaseController {
         return "house/index";
     }
 
+    @PreAuthorize("hasAuthority('house.create')")
     @RequestMapping("/create")
     public String createHouse(ModelMap model) {
         setCommonAttr(model);
@@ -69,12 +72,14 @@ public class HouseController extends BaseController {
         model.addAttribute("houseUseList",dictService.findListByDictCode("houseUse"));
     }
 
+    @PreAuthorize("hasAuthority('house.create')")
     @RequestMapping("/save")
     public String SaveHouse(House house) {
         houseService.insert(house);
         return PAGE_SUCCESS;
     }
 
+    @PreAuthorize("hasAuthority('house.edit')")
     @GetMapping("/edit/{id}")
     public String edit(ModelMap model,@PathVariable Long id) {
         House house = houseService.getById(id);
@@ -84,12 +89,14 @@ public class HouseController extends BaseController {
         return "house/edit";
     }
 
+    @PreAuthorize("hasAuthority('house.edit')")
     @PostMapping(value="/update")
     public String update(House house) {
         houseService.update(house);
         return PAGE_SUCCESS;
     }
 
+    @PreAuthorize("hasAuthority('house.delete')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         houseService.delete(id);
@@ -98,6 +105,7 @@ public class HouseController extends BaseController {
 
     private final static String LIST_ACTION = "redirect:/house";
 
+    @PreAuthorize("hasAuthority('house.publish')")
     @GetMapping("/publish/{id}/{status}")
     public String publish(@PathVariable Long id,@PathVariable Integer status) {
         houseService.publish(id, status);
@@ -107,6 +115,7 @@ public class HouseController extends BaseController {
     /**
      * 详情
      */
+    @PreAuthorize("hasAuthority('house.show')")
     @GetMapping("/{id}")
     public String show(ModelMap model,@PathVariable Long id) {
         House house = houseService.getById(id);

@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.controller.BaseController;
 import com.atguigu.entity.HouseUser;
 import com.atguigu.service.HouseUserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ public class HouseUserController extends BaseController {
     private final static String PAGE_SUCCESS = "common/successPage";
 
 
+    @PreAuthorize("hasAuthority('house.editUser')")
     @GetMapping("/create")
     public String create(ModelMap model, @RequestParam("houseId") Long houseId) {
         model.addAttribute("houseId",houseId);
@@ -31,6 +33,7 @@ public class HouseUserController extends BaseController {
     /**
      * 保存新增
      */
+    @PreAuthorize("hasAuthority('house.editUser')")
     @PostMapping("/save")
     public String save(HouseUser houseUser) {
 
@@ -42,6 +45,7 @@ public class HouseUserController extends BaseController {
     /**
      * 编辑
      */
+    @PreAuthorize("hasAuthority('house.editUser')")
     @GetMapping("/edit/{id}")
     public String edit(ModelMap model,@PathVariable Long id) {
         HouseUser houseUser = houseUserService.getById(id);
@@ -52,6 +56,7 @@ public class HouseUserController extends BaseController {
     /**
      * 保存更新
      */
+    @PreAuthorize("hasAuthority('house.editUser')")
     @PostMapping(value="/update")
     public String update(HouseUser houseUser) {
 
@@ -63,6 +68,7 @@ public class HouseUserController extends BaseController {
     /**
      * 删除
      */
+    @PreAuthorize("hasAuthority('house.editUser')")
     @GetMapping("/delete/{houseId}/{id}")
     public String delete(ModelMap model, @PathVariable Long houseId, @PathVariable Long id) {
         houseUserService.delete(id);
