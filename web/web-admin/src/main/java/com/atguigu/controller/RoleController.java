@@ -6,6 +6,7 @@ import com.atguigu.entity.Role;
 import com.atguigu.service.PermissionService;
 import com.atguigu.service.RoleService;
 import com.github.pagehelper.PageInfo;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ public class RoleController extends BaseController {
      * @param model
      * @return
      */
+    @PreAuthorize("hasAuthority('role.show')")
     @RequestMapping
     public String index(ModelMap model, HttpServletRequest request) {
         Map<String,Object> filters = getFilters(request);
@@ -45,12 +47,15 @@ public class RoleController extends BaseController {
 
     private final static String PAGE_CREATE = "role/create";
 
+    @PreAuthorize("hasAuthority('role.create')")
     @GetMapping("/create")
     public String create() {
         return PAGE_CREATE;
     }
 
     private final static String PAGE_SUCCESS = "common/successPage";
+
+    @PreAuthorize("hasAuthority('role.create')")
     @PostMapping("/save")
     public String save(Role role, HttpServletRequest request) {
         roleService.insert(role);
@@ -58,6 +63,7 @@ public class RoleController extends BaseController {
     }
 
     private final static String PAGE_EDIT = "role/edit";
+    @PreAuthorize("hasAuthority('role.edit')")
     @GetMapping("/edit/{id}")
     public String edit(ModelMap model, @PathVariable Long id) {
         Role role = roleService.getById(id);
@@ -65,6 +71,7 @@ public class RoleController extends BaseController {
         return PAGE_EDIT;
     }
 
+    @PreAuthorize("hasAuthority('role.edit')")
     @PostMapping(value="/update")
     public String update(Role role) {
         roleService.update(role);
@@ -72,6 +79,8 @@ public class RoleController extends BaseController {
     }
 
     private final static String LIST_ACTION = "redirect:/role";
+
+    @PreAuthorize("hasAuthority('role.delete')")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         roleService.delete(id);
@@ -83,6 +92,7 @@ public class RoleController extends BaseController {
     /**
      * 进入分配权限页面
      */
+    @PreAuthorize("hasAuthority('role.assign')")
     @GetMapping("/assignShow/{roleId}")
     public String assignShow(ModelMap model,@PathVariable Long roleId) {
         List<Map<String,Object>> zNodes = permissionService.findPermissionByRoleId(roleId);
@@ -92,10 +102,10 @@ public class RoleController extends BaseController {
     }
 
 
+    @PreAuthorize("hasAuthority('role.assign')")
     @PostMapping("/assignPermission")
     public String assignPermission(Long roleId,Long[] permissionIds) {
         permissionService.saveRolePermissionRelation(roleId, permissionIds);
         return PAGE_SUCCESS;
     }
-
 }
