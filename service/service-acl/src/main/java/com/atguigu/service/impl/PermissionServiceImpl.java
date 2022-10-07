@@ -91,6 +91,15 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
         return build(permissionList);
     }
 
+    @Override
+    public List<String> findCodeListByAdminId(Long adminId) {
+        //超级管理员admin账号id为：1
+        if(adminId == 1) {
+            return permissionDao.findAllCodeList();
+        }
+        return permissionDao.findCodeListByAdminId(adminId);
+    }
+
     /* helper methods */
     /**
      * 使用递归方法建菜单
