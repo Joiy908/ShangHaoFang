@@ -53,4 +53,10 @@ public class IndexController {
 
         return PAGE_MAIN;
     }
+
+    private final static String PAGE_NO_AUTH = "frame/accessDeny";
+    @GetMapping("/accessDeny")
+    public String noAuth() {
+        return PAGE_NO_AUTH;
+    }
 }

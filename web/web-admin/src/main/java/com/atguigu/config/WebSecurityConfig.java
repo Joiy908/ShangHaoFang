@@ -53,5 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login"); //用户退出后要被重定向的url
 
         http.csrf().disable();//关闭跨域请求伪造功能
+
+        //添加自定义异常入口
+        http.exceptionHandling().accessDeniedHandler(new MyAccessDenyHandler());
     }
 }
