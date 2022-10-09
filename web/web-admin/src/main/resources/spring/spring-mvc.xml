@@ -24,6 +24,12 @@
                         <property name="characterEncoding" value="UTF-8"/>
                     </bean>
                 </property>
+                <!-- 添加spring security 标签支持：sec -->
+                <property name="additionalDialects">
+                    <set>
+                        <bean class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
+                    </set>
+                </property>
             </bean>
         </property>
     </bean>
